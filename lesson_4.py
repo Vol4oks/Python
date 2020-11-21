@@ -5,6 +5,21 @@
 #Для выполнения расчета для конкретных значений
 #необходимо запускать скрипт с параметрами.
 
+def mun_func():
+    
+    try:
+        hour = float(input('Введите выработку в часах:  '))
+        rate = float(input('Введите ставку в час:  '))
+        prize = float(input('Введите премию:  '))
+        res = hour * rate + prize
+        return print(f'Зарплата составляет: {res} рублей.')
+    except ValueError:
+        return print('ошибка ввода')
+
+
+mun_func()
+
+
 #2. Представлен список чисел. 
 #Необходимо вывести элементы исходного списка, 
 #значения которых больше предыдущего элемента.
@@ -16,9 +31,17 @@
 #Результат: 
     #[12, 44, 4, 10, 78, 123].
 
+my_list = [300, 2, 12, 44, 1, 1, 4, 10, 7, 1, 78, 123, 55]
+new_list = [el for num, el in enumerate(my_list) if my_list[num - 1] < my_list[num]]
+print(my_list)
+print(new_list)
+
 #3. Для чисел в пределах от 20 до 240 найти числа, 
 #кратные 20 или 21. Необходимо решить задание в одну строку.
 #Подсказка: использовать функцию range() и генератор.
+
+print([el for el in range(20,240) if el % 20 == 0 or el % 21 ==0] )
+
 
 #4. Представлен список чисел. 
 #Определить элементы списка, не имеющие повторений. 
@@ -31,6 +54,11 @@
 #Результат: 
     #[23, 1, 3, 10, 4, 11]
 
+my_list = [2, 2, 2, 7, 23, 1, 44, 44, 3, 2, 10, 7, 4, 11]
+new_list = [el for el in my_list if my_list.count(el) < 2 ]
+print(my_list)
+print(new_list)
+
 #5. Реализовать формирование списка, 
 #используя функцию range() и возможности генератора. 
 #В список должны войти четные числа 
@@ -38,6 +66,17 @@
 #Необходимо получить 
 #результат вычисления произведения всех элементов списка.
 #Подсказка: использовать функцию reduce().
+
+from functools import reduce
+
+def my_func(prev_el, el):
+    'Функция перемножения элементов'
+    return prev_el * el
+
+
+print([el for el in range(99,1001) if el % 2 == 0 ])
+print(reduce(my_func, [el for el in range(99,1001) if el % 2 == 0 ] ))
+
 
 #6. Реализовать два небольших скрипта:
 #а) итератор, генерирующий целые числа, начиная с указанного,
@@ -53,6 +92,29 @@
 #Во втором также необходимо предусмотреть условие, 
 #при котором повторение элементов списка будет прекращено.
 
+from itertools import count
+
+try:
+    for el in count(int(input('Введите число:  '))):
+        if el > 15:
+            break
+        else:
+            print(el)
+except ValueError:
+    print('не число')
+
+    
+from itertools import cycle
+
+my_list = [123, "abx", None, False]
+clic = 0
+for el in cycle(my_list):
+    if clic > 20:
+        break
+    else:
+        print(el)
+        clic += 1
+
 #7. Реализовать генератор с помощью функции 
 #с ключевым словом yield, создающим очередное значение. 
 #При вызове функции должен создаваться объект-генератор. 
@@ -62,3 +124,29 @@
 #начиная с 1! и до n!.
 #Подсказка: факториал числа n — произведение чисел от 1 до n. 
 #Например, факториал четырёх 4! = 1 * 2 * 3 * 4 = 24.
+
+from itertools import count
+from math import factorial
+
+try:
+    def fact(num):
+        "генератор факториала"
+        for i in count(num):
+            yield factorial(i)
+    
+    clic = 0
+    for el in fact(int(input('Введите число:  '))):
+        if clic < 5:
+            print(el)
+            clic += 1
+        else:
+            break 
+except ValueError:
+         print('ошибка ввода')
+
+
+
+
+
+
+
